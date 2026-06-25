@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate yo meme!</title>
+</head>
+<body>
+    <h1>Generate your meme!</h1>
+
+    <form action="/generate" method="POST">
+        <label>Template:</label><br>
+        <select name="template_id">
+            {% for t in templates %}
+                <option value="{{ t.id }}">{{ t.name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label>Top Text:</label><br>
+        <input type="text" name="text1" placeholder="Top Text"><br><br>
+
+        <label>Bottom Text:</label><br>
+        <input type="text" name="text2" placeholder="Bottom Text"><br><br>
+
+        <button type="submit">Generate</button>
+    </form>
+    {% if meme_url %}
+        <br>
+        <h2>Your Meme:</h2>
+        <img src="{{ meme_url }}" alt="Generated Meme" style="max-width:500px;">
+        <br>
+        <a href="{{ meme_url }}" target="_blank">Open in new tab</a>
+    {% endif %}
+</body>
+</html>
