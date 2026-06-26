@@ -4,18 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generate yo meme!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <h1>Generate your meme!</h1>
 
     <form action="/generate" method="POST">
         <label>Template:</label><br>
-        <select name="template_id">
+        <input
+            type="hidden"
+            name="template_id"
+            id="template_id"
+            value="{{ templates[0].id }}"
+        >
+        <div class="template-grid">
             {% for t in templates %}
-                <option value="{{ t.id }}">{{ t.name }}</option>
+            <div class="template-card {% if loop.first %}selected{% endif %} {% if loop.index > 10%}hidden{% endif %}"
+                onclick="selectTemplate('{{ t.id }}', this)"
+                data-image="{{ t.blank }}">
+                <div class="template-preview">
+                    <img src="{{ t.blank }}" alt="{{ t.name }}">
+                </div>
+                <div class="template-name">
+                    <p>{{ t.name }}</p>
+                </div>
+            </div>
             {% endfor %}
-        </select><br><br>
-
+        </div>
+        <button type="button" id="show-more-btn" onclick="showMore()">Show more</button>
         <label>Top Text:</label><br>
         <input type="text" name="text1" placeholder="Top Text"><br><br>
 
@@ -31,5 +47,6 @@
         <br>
         <a href="{{ meme_url }}" target="_blank">Open in new tab</a>
     {% endif %}
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
