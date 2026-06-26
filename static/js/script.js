@@ -13,3 +13,16 @@ function showMore(){
     document.getElementById("show-more-btn").style.display = "none";
    }
 }
+function shuffleTemplate(){
+    const grid = document.querySelector(".template-grid");
+    const cards = Array.from(grid.querySelectorAll(".template-card"));
+
+    //shuffle the array
+    cards.sort(() => Math.random() - 0.5);
+
+    //re-append in new order, hide all past 10
+    cards.forEach((card, index) => {
+        card.classList.toggle("hidden", index >= 10);
+        grid.appendChild(card);
+    });
+}

@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Generate your meme!</h1>
-
+    <div class="header">
+        <h1>Generate your meme!</h1>
+        <button type="button" onclick="shuffleTemplate()" class="random-btn">Shuffle</button>
+    </div>
     <form action="/generate" method="POST">
         <label>Template:</label><br>
         <input
