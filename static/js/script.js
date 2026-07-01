@@ -4,6 +4,10 @@ function selectTemplate(templateId, card){
         .querySelectorAll(".template-card")
         .forEach(card => card.classList.remove("selected"));
     card.classList.add("selected");
+    card.classList.add("selected");
+    const image=
+        card.dataset.image;
+        document.getElementById("selected-preview").src = image;
 }
 function showMore(){
    const hidden = Array.from(document.querySelectorAll(".hidden")).slice(0,10);

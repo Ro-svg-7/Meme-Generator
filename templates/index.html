@@ -12,35 +12,41 @@
         <button type="button" onclick="shuffleTemplate()" class="random-btn">Shuffle</button>
     </div>
     <form action="/generate" method="POST">
-        <label>Template:</label><br>
-        <input
-            type="hidden"
-            name="template_id"
-            id="template_id"
-            value="{{ templates[0].id }}"
-        >
-        <div class="template-grid">
-            {% for t in templates %}
-            <div class="template-card {% if loop.first %}selected{% endif %} {% if loop.index > 10%}hidden{% endif %}"
-                onclick="selectTemplate('{{ t.id }}', this)"
-                data-image="{{ t.blank }}">
-                <div class="template-preview">
-                    <img src="{{ t.blank }}" alt="{{ t.name }}">
+        <input type="hidden" name="template_id" id="template_id" value="{{ templates[0].id }}">
+        <div class="dashboard">
+            <!-- LEFT SIDE -->
+             <div class="template-panel">
+                <h3>Choose a template</h3>
+                <div class="template-grid">
+                    {% for t in templates %}
+                    <div
+                    class="template-card {% if loop.first %}selected{% endif %} {% if loop.index > 10 %}hidden{% endif %}"
+                    onclick="selectTemplate('{{ t.id }}', this)"
+                    data-image="{{ t.blank }}">
+                        <div class="template-preview">
+                            <img src="{{ t.blank }}" alt="{{ t.name }}">
+                        </div>
+                        <div class="template-name">
+                            {{ t.name }}
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
-                <div class="template-name">
-                    <p>{{ t.name }}</p>
-                </div>
-            </div>
-            {% endfor %}
+                <button type="button" id="show-more-btn" onclick="showMoreTemplates()">Show More</button>
+             </div>
+            <!-- RIGHT SIDE -->
+             <div class="editor-panel">
+                <h3>Selected Template</h3>
+                <img id="selected-preview"
+                src="{{ templates[0].blank }}"
+                alt="Selected Template">
+                <label>Top Text</label>
+                <input type="text" name="text1" placeholder="Enter top text">
+                <label>Bottom Text</label>
+                <input type="text" name="text2" placeholder="Enter bottom text">
+                <button type="submit">Generate Meme</button>
+             </div>
         </div>
-        <button type="button" id="show-more-btn" onclick="showMore()">Show more</button>
-        <label>Top Text:</label><br>
-        <input type="text" name="text1" placeholder="Top Text"><br><br>
-
-        <label>Bottom Text:</label><br>
-        <input type="text" name="text2" placeholder="Bottom Text"><br><br>
-
-        <button type="submit">Generate</button>
     </form>
     {% if meme_url %}
         <br>
